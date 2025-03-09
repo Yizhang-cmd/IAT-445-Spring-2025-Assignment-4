@@ -1,0 +1,55 @@
+using UnityEngine;
+
+public class VelociraptorAnimatorSwitcher : MonoBehaviour
+{
+    private Animator animator;
+
+    // Drag and drop these in the Unity Inspector
+    public RuntimeAnimatorController DemoAnimatorWalk;  // Idle/Walk
+    public RuntimeAnimatorController DemoAnimatorA;     // Roar
+    public RuntimeAnimatorController DemoAnimatorRun;   // Run
+    public RuntimeAnimatorController DemoAnimatorD;     // Attack
+    public RuntimeAnimatorController DemoAnimatorB;     // Death
+
+    void Start()
+    {
+        animator = GetComponent<Animator>(); // Get the Animator component
+
+        // Start with Idle (Walking) animation
+        if (DemoAnimatorWalk != null)
+        {
+            animator.runtimeAnimatorController = DemoAnimatorWalk;
+        }
+        else
+        {
+            Debug.LogWarning("DemoAnimatorWalk is not assigned in the Inspector!");
+        }
+    }
+
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.A) && DemoAnimatorWalk != null) // Walk (Idle)
+            ChangeAnimator(DemoAnimatorWalk, "DemoAnimatorWalk");
+
+        if (Input.GetKeyDown(KeyCode.B) && DemoAnimatorA != null) // Roar
+            ChangeAnimator(DemoAnimatorA, "DemoAnimatorA");
+
+        if (Input.GetKeyDown(KeyCode.C) && DemoAnimatorRun != null) // Run
+            ChangeAnimator(DemoAnimatorRun, "DemoAnimatorRun");
+
+        if (Input.GetKeyDown(KeyCode.D) && DemoAnimatorD != null) // Attack
+            ChangeAnimator(DemoAnimatorD, "DemoAnimatorD");
+
+        if (Input.GetKeyDown(KeyCode.E) && DemoAnimatorB != null) // Death
+            ChangeAnimator(DemoAnimatorB, "DemoAnimatorB");
+    }
+
+    void ChangeAnimator(RuntimeAnimatorController newController, string controllerName)
+    {
+        if (animator.runtimeAnimatorController != newController)
+        {
+            animator.runtimeAnimatorController = newController;
+            Debug.Log("Switched to Animator: " + controllerName);
+        }
+    }
+}
