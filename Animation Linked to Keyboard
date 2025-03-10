@@ -1,0 +1,47 @@
+using UnityEngine;
+
+public class DinosaurController : MonoBehaviour
+{
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        // Run (Hold T)
+        if (Input.GetKey(KeyCode.T))
+        {
+            animator.SetBool("IsRunning", true);
+            Debug.Log("Run started!");
+        }
+        else
+        {
+            animator.SetBool("IsRunning", false);
+            Debug.Log("Run stopped!");
+        }
+
+        // Roar (Press R)
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            animator.SetTrigger("RoarTrigger");
+            Debug.Log("Roar triggered!");
+        }
+
+        // Attack (Press F)
+        if (Input.GetKeyDown(KeyCode.F))
+        {
+            animator.SetTrigger("AttackTrigger");
+            Debug.Log("Attack triggered!");
+        }
+
+        // Death (Press G)
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            animator.SetTrigger("DeathTrigger");
+            Debug.Log("Death triggered!");
+        }
+    }
+}
