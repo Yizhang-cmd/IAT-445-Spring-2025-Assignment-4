@@ -1,0 +1,54 @@
+using UnityEngine;
+
+public class DinosaurController : MonoBehaviour
+{
+    private Animator animator;
+
+    void Start()
+    {
+        animator = GetComponent<Animator>();
+    }
+
+    void Update()
+    {
+        // 🦖 Idle (A Button - Oculus Right Controller)
+        if (OVRInput.GetDown(OVRInput.Button.One, OVRInput.Controller.RTouch))
+        {
+            animator.Play("Idle");
+            Debug.Log("Idle triggered!");
+        }
+
+        // 🏃 Run (Right Thumbstick Press)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
+        {
+            animator.SetBool("IsRunning", true);
+            Debug.Log("Run started!");
+        }
+        else if (OVRInput.GetUp(OVRInput.Button.PrimaryThumbstick, OVRInput.Controller.RTouch))
+        {
+            animator.SetBool("IsRunning", false);
+            Debug.Log("Run stopped!");
+        }
+
+        // 🦖 Roar (B Button - Oculus Right Controller)
+        if (OVRInput.GetDown(OVRInput.Button.Two, OVRInput.Controller.RTouch))
+        {
+            animator.SetTrigger("RoarTrigger");
+            Debug.Log("Roar triggered!");
+        }
+
+        // ⚔️ Attack (Right Hand Grip Button)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryHandTrigger, OVRInput.Controller.RTouch))
+        {
+            animator.SetTrigger("AttackTrigger");
+            Debug.Log("Attack triggered!");
+        }
+
+        // 💀 Death (Right Index Trigger)
+        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger, OVRInput.Controller.RTouch))
+        {
+            animator.SetTrigger("DeathTrigger");
+            Debug.Log("Death triggered!");
+        }
+    }
+}
